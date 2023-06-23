@@ -2,8 +2,8 @@ package sylim.daotoex;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class MemberDAO {
@@ -22,16 +22,11 @@ public class MemberDAO {
     public ArrayList<MemberDTO> memberSelect() {
         ArrayList<MemberDTO> dtos = new ArrayList<MemberDTO>();
         
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-        
-        try {
-            conn = DriverManager.getConnection(url, uid, upw);
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery("select * from member");
+        try (Connection conn = DriverManager.getConnection(url, uid, upw);
+             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM member");
+             ResultSet rs = pstmt.executeQuery()) {
             
-            while(rs.next()) {
+            while (rs.next()) {
                 String name = rs.getString("name");
                 String id = rs.getString("id");
                 String pw = rs.getString("pw");
@@ -41,44 +36,28 @@ public class MemberDAO {
                 dtos.add(dto);
             }
         } catch(Exception e) {
-            
-        } finally {
-            try {
-                if(rs != null) rs.close();
-                if(stmt != null) stmt.close();
-                if(conn != null) conn.close();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
+            e.printStackTrace();
         }
         
         return dtos;
     }
     
     public int memberUpdate(MemberDTO member) {
-        Connection conn = null;
-        Statement stmt = null;
         int result = 0;
         
-        try {
-            conn = DriverManager.getConnection(url, uid, upw);
-            stmt = conn.createStatement();
+        try (Connection conn = DriverManager.getConnection(url, uid, upw);
+             PreparedStatement pstmt = conn.prepareStatement("UPDATE member SET pw = ?, name = ?, phone = ? WHERE id = ?")) {
             
-            // 회원 정보 업데이트 SQL 실행
-            String query = "UPDATE member SET pw = '" + member.getPw() + "', name = '" + member.getName() + "', phone = '" + member.getPhone() + "' WHERE id = '" + member.getId() + "'";
-            result = stmt.executeUpdate(query);
+            pstmt.setString(1, member.getPw());
+            pstmt.setString(2, member.getName());
+            pstmt.setString(3, member.getPhone());
+            pstmt.setString(4, member.getId());
+            
+            result = pstmt.executeUpdate();
         } catch(Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if(stmt != null) stmt.close();
-                if(conn != null) conn.close();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
         }
         
         return result;
     }
-    
 }

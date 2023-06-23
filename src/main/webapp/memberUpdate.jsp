@@ -36,8 +36,6 @@
     <p>아이디: <%= id %></p>
     <p>이름: <%= name %></p>
     <p>전화번호: <%= phone %></p>
-    <a href="modify.jsp">다시 수정하기</a>
-    <a href="logout.jsp">로그아웃</a>
 
 </body>
 </html>
