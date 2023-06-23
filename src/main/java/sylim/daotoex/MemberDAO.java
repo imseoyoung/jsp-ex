@@ -4,20 +4,37 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 public class MemberDAO {
     private String url = "jdbc:oracle:thin:@localhost:1521:dink15";
     private String uid = "C##scott";
     private String upw = "tiger";
     
+    Connection conn = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+    DataSource ds = null;
+    
     public MemberDAO() {
+//        try {
+//            Class.forName("oracle.jdbc.driver.OracleDriver");
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//        }
+        
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Context ctx = new InitialContext();
+            ds = (DataSource)ctx.lookup("java:comp/env/jdbc/Oracle11g");
         } catch(Exception e) {
-            e.printStackTrace();
+            e.printStackTrace();       
         }
     }
+            
     
     public ArrayList<MemberDTO> memberSelect() {
         ArrayList<MemberDTO> dtos = new ArrayList<MemberDTO>();
