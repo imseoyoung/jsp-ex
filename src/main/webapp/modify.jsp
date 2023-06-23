@@ -16,8 +16,8 @@
     <%
     String id = request.getParameter("id");
     String pw = request.getParameter("pw");
-    String name = request.getParameter("name");  // 수정된 부분
-    String phone = request.getParameter("phone");  // 수정된 부분
+    String name = request.getParameter("name");
+    String phone = request.getParameter("phone");
     Connection conn = null;
     PreparedStatement pstmt = null;
     ResultSet rs = null;
@@ -30,14 +30,14 @@
 
         Class.forName(driver);
         conn = DriverManager.getConnection(url, user, dbPassword);
-        String query = "SELECT * FROM member WHERE id = ? AND pw = ?";
+        String query = "SELECT * FROM member WHERE id = ?";
 
         pstmt = conn.prepareStatement(query);
         pstmt.setString(1, id);
-        pstmt.setString(2, pw);
         rs = pstmt.executeQuery();
 
         if (rs.next()) {
+            pw = rs.getString("pw");
             name = rs.getString("name");
             phone = rs.getString("phone");
         } else {
