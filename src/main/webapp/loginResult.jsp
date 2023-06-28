@@ -34,7 +34,6 @@
                 String name = rs.getString("name");
                 String phone = rs.getString("phone");
 
-                // 회원 정보 수정 페이지로 데이터를 전달하기 위해 쿼리 문자열에 파라미터를 추가합니다.
                 String modifyPageURL = "modify.jsp?id=" + id + "&pw=" + pw + "&name=" + name + "&phone=" + phone;
                 %>
                 <p>로그인에 성공했습니다!</p>

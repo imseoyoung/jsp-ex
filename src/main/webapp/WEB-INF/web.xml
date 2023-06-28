@@ -9,4 +9,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>elTest</display-name>
+    <servlet-name>elTest</servlet-name>
+    <servlet-class>sylim.elex.elTest</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>elTest</servlet-name>
+    <url-pattern>/elTest</url-pattern>
+  </servlet-mapping>
 </web-app>

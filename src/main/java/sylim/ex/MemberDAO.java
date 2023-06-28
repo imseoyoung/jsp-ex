@@ -82,7 +82,7 @@ public class MemberDAO {
         int result = 0;
         
         try (Connection conn = DriverManager.getConnection(url, uid, upw);
-             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO member(name, id, pw, phone) VALUES (?, ?, ?, ?)")) {
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO member(name, id, pw, phone) VALUES (?, ?, ?, ?)")) {
             
             pstmt.setString(1, member.getName());
             pstmt.setString(2, member.getId());
