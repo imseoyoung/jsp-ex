@@ -19,4 +19,14 @@
     <servlet-name>elTest</servlet-name>
     <url-pattern>/elTest</url-pattern>
   </servlet-mapping>
+<!--   <servlet>
+    <description></description>
+    <display-name>FrontCon</display-name>
+    <servlet-name>FrontCon</servlet-name>
+    <servlet-class>sylim.ex2.FrontCon</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FrontCon</servlet-name>
+    <url-pattern>/FrontCon</url-pattern>
+  </servlet-mapping> -->
 </web-app>
